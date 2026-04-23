@@ -1,0 +1,61 @@
+window.power-menu {
+    padding: 10px;
+    border-radius: 30px;
+    background-color: rgba(20, 50, 60, 0.88);
+}
+
+window.power-menu picture {
+    border-radius: 20px;
+}
+
+window.power-menu .info-box {
+    background-color: rgba(20, 50, 60, 0.5);
+    padding: 30px 16px;
+}
+
+window.power-menu .info-box label {
+    color: #cdd6f4;
+    font-family: "JetBrains Mono", monospace;
+}
+
+window.power-menu .info-box label:first-child {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+window.power-menu .info-box label:last-child {
+    font-size: 15px;
+    color: #a6adc8;
+}
+
+window.power-menu .buttons-box {
+    margin-top: 20px;
+}
+
+window.power-menu .buttons-box button {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #cdd6f4;
+    transition: background-color 150ms ease;
+    min-width: 64px;
+    min-height: 64px;
+}
+
+window.power-menu .buttons-box button:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+}
+
+window.power-menu .buttons-box button label {
+    font-size: 15px;
+}
+
+window.power-menu .buttons-box button image {
+    -gtk-icon-size: 20px;
+}
+
+window.power-menu .buttons-box button box {
+    spacing: 4px;
+}

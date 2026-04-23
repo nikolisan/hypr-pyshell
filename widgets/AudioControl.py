@@ -10,14 +10,13 @@ class DeviceRoutes(Gtk.Box):
     def __init__(self, endpoint: AstalWp.Endpoint):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=2)
         self._endpoint = endpoint
-        self._route_btns: list[Gtk.Button] = []
+        self._route_btns: list[Gtk.CheckButton] = []
 
         self._rebuild()
         endpoint.connect("notify::routes", lambda *_: self._rebuild())
         endpoint.connect("notify::route", lambda *_: self._refresh_active())
 
     def _rebuild(self):
-        """Clears the list with route button to rebuild it after a route change"""
         child = self.get_first_child()
         while child:
             nxt = child.get_next_sibling()
@@ -25,9 +24,17 @@ class DeviceRoutes(Gtk.Box):
             child = nxt
         self._route_btns.clear()
 
+        group = None
         for route in self._endpoint.get_routes() or []:
-            btn = Gtk.Button(label=route.get_description())
-            btn.connect("clicked", lambda _, r=route: self._endpoint.set_route(r))
+            btn = Gtk.CheckButton(label=route.get_description(), group=group)
+            if group is None:
+                group = btn
+            btn.connect(
+                "toggled",
+                lambda b, r=route: (
+                    self._endpoint.set_route(r) if b.get_active() else None
+                ),
+            )
             self._route_btns.append(btn)
             self.append(btn)
 
@@ -36,10 +43,7 @@ class DeviceRoutes(Gtk.Box):
     def _refresh_active(self):
         active = self._endpoint.get_route()
         for route, btn in zip(self._endpoint.get_routes() or [], self._route_btns):
-            if active and active.get_index() == route.get_index():
-                btn.add_css_class("active-route")
-            else:
-                btn.remove_css_class("active-route")
+            btn.set_active(bool(active and active.get_index() == route.get_index()))
 
 
 class DeviceRow(Gtk.Box):
@@ -75,10 +79,6 @@ class DeviceRow(Gtk.Box):
         self._revealer.set_reveal_child(False)
         self._revealer.set_child(DeviceRoutes(endpoint))
         self.append(self._revealer)
-
-    @property
-    def check_button(self) -> Gtk.CheckButton:
-        return self._default_btn
 
     def _refresh_default(self):
         self._default_btn.handler_block_by_func(self._on_default_toggled)

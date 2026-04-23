@@ -12,6 +12,7 @@ from gi.repository import Gtk4LayerShell as LayerShell  # pyright: ignore[report
 
 from widgets.Bar import Bar
 from widgets.AudioControl import AudioControl
+from widgets.PowerMenu import PowerMenuOSD
 
 
 class PyShell(Gtk.Application):
@@ -19,10 +20,17 @@ class PyShell(Gtk.Application):
         super().__init__(application_id="com.my_application.id")
         self.connect("activate", self.on_activate)
 
+        self.power_btn = Gtk.Button(label="Power Menu")
+        self.power_btn.connect("clicked", self._init_power_menu)
+
+    def _init_power_menu(self, args) -> None:
+        menu: PowerMenuOSD = PowerMenuOSD()
+        menu.present()
+
     def on_activate(self, app) -> None:
         bar: Bar = Bar(application=app)
-        bar.add_widget(Gtk.Label(label="Test"))
         bar.add_widget(AudioControl())
+        bar.add_widget(self.power_btn)
         bar.present()
 
 
