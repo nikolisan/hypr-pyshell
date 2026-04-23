@@ -1,0 +1,128 @@
+popover.audio-popover > contents {
+    background-color: rgba(20, 50, 60, 0.85);
+    border-radius: 12px;
+    padding: 4px;
+    border: none;
+}
+
+.audio-panel {
+    padding: 8px;
+    min-width: 280px;
+}
+
+/* ── Volume row ────────────────────────────────────────── */
+
+.audio-volume-row label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #cdd6f4;
+    min-width: 2.5em;
+}
+
+.audio-volume-row scale trough {
+    background-color: rgba(137, 180, 250, 0.2);
+    border-radius: 4px;
+    min-height: 4px;
+}
+
+.audio-volume-row scale trough highlight {
+    background-color: #89b4fa;
+    border-radius: 4px;
+}
+
+.audio-volume-row scale slider {
+    background-color: #cdd6f4;
+    border-radius: 50%;
+    min-width: 12px;
+    min-height: 12px;
+    border: none;
+    box-shadow: none;
+}
+
+.audio-volume-row button {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 4px;
+    color: #cdd6f4;
+    transition: background-color 150ms ease;
+}
+
+.audio-volume-row button:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+}
+
+/* ── Section header ────────────────────────────────────── */
+
+.audio-section-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: #a6adc8;
+    padding: 2px 0;
+}
+
+/* ── Device rows ───────────────────────────────────────── */
+
+.audio-device-row {
+    border-radius: 8px;
+}
+
+.audio-device-header {
+    padding: 5px 4px;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+}
+
+.audio-device-header:hover {
+    background-color: rgba(137, 180, 250, 0.1);
+}
+
+.audio-device-header label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #cdd6f4;
+}
+
+.audio-expand-btn {
+    background: none;
+    border: none;
+    border-radius: 6px;
+    padding: 2px;
+    color: #a6adc8;
+    transition: background-color 150ms ease, color 150ms ease;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.audio-expand-btn:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+}
+
+/* ── Routes (sub-list) ─────────────────────────────────── */
+
+.audio-routes {
+    padding-left: 24px;
+    padding-bottom: 4px;
+}
+
+.audio-routes checkbutton {
+    border-radius: 6px;
+    padding: 3px 6px;
+    transition: background-color 150ms ease;
+}
+
+.audio-routes checkbutton:hover {
+    background-color: rgba(137, 180, 250, 0.1);
+}
+
+.audio-routes checkbutton label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: #a6adc8;
+}
+
+.audio-routes checkbutton:checked label {
+    color: #cdd6f4;
+}

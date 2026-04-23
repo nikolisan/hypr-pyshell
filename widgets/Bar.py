@@ -21,6 +21,7 @@ class Bar(Gtk.Window):
         LayerShell.set_anchor(self, LayerShell.Edge.LEFT, True)
         LayerShell.set_anchor(self, LayerShell.Edge.RIGHT, True)
         LayerShell.auto_exclusive_zone_enable(self)
+        LayerShell.set_namespace(self, "pybar-bar")
 
         self._layout: Gtk.Box = Gtk.Box(spacing=13)
         self.set_child(self._layout)
