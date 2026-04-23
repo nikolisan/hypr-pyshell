@@ -1,0 +1,122 @@
+popover.network-popover > contents {
+    background-color: rgba(20, 50, 60, 0.85);
+    border-radius: 12px;
+    padding: 4px;
+    border: none;
+}
+
+.network-panel {
+    padding: 8px;
+    min-width: 300px;
+}
+
+/* ── Wi-Fi header ──────────────────────────────────────── */
+
+.section-header {
+    padding: 6px 4px;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+}
+
+.section-header:hover {
+    background-color: rgba(137, 180, 250, 0.1);
+}
+
+.section-header label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #cdd6f4;
+}
+
+/* ── Active connection ─────────────────────────────────── */
+
+.network-row-active {
+    padding: 6px 8px;
+    background-color: rgba(166, 227, 161, 0.1);
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+.network-row-active label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #a6e3a1;
+}
+
+.connected-dot {
+    color: #a6e3a1;
+    font-size: 9px;
+}
+
+/* ── Network rows ──────────────────────────────────────── */
+
+.network-row {
+    padding: 5px 8px;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+}
+
+.network-row:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+}
+
+.network-row label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #cdd6f4;
+}
+
+/* ── Password entry ────────────────────────────────────── */
+
+.network-row entry {
+    background-color: rgba(20, 50, 60, 0.6);
+    color: #cdd6f4;
+    border: 1px solid rgba(137, 180, 250, 0.3);
+    border-radius: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+}
+
+.network-row button {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 12px;
+    color: #cdd6f4;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    transition: background-color 150ms ease;
+}
+
+.network-row button:hover {
+    background-color: rgba(137, 180, 250, 0.15);
+    color: #89b4fa;
+}
+
+.password-error {
+    border: 1px solid #f38ba8;
+    border-radius: 6px;
+}
+
+.password-error-label {
+    color: #f38ba8;
+    font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* ── Forget popover ────────────────────────────────────── */
+
+.forget-btn {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 16px;
+    color: #f38ba8;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    transition: background-color 150ms ease;
+}
+
+.forget-btn:hover {
+    background-color: rgba(243, 139, 168, 0.15);
+}
