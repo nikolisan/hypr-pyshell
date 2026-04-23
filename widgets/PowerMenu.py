@@ -9,11 +9,11 @@ CDLL("libgtk4-layer-shell.so")  # pyright: ignore[reportUnusedCallResult]
 gi.require_version("Gtk", "4.0")
 gi.require_version("Gtk4LayerShell", "1.0")
 
-from gi.repository import GLib, Gtk, Gio, Gdk
+from gi.repository import Gtk, Gio, Gdk
 from gi.repository import Gtk4LayerShell as LayerShell  # pyright: ignore[reportAttributeAccessIssue, reportUnknownVariableType, reportUnusedImport]  # noqa: E402
 
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 PICTURE = BASE_DIR / "assets" / "images" / "pixel_art.png"
 CSS = BASE_DIR / "assets" / "css" / "powermenu.css"
 
@@ -53,7 +53,7 @@ class PowerMenuWindow(Gtk.Window):
         super().__init__(**kwargs)
 
         LayerShell.init_for_window(self)
-        LayerShell.set_layer(self, LayerShell.Layer.TOP)
+        LayerShell.set_layer(self, LayerShell.Layer.OVERLAY)
         LayerShell.set_namespace(self, "powermenu")
         LayerShell.set_keyboard_mode(self, LayerShell.KeyboardMode.EXCLUSIVE)
 
@@ -61,6 +61,13 @@ class PowerMenuWindow(Gtk.Window):
         key_ctrl.connect("key-pressed", self._on_key_pressed)
         self.add_controller(key_ctrl)
 
+        provider = Gtk.CssProvider()
+        provider.load_from_path(str(CSS))
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
         self.add_css_class("power-menu")
 
         monitor = Gdk.Display.get_default().get_monitors().get_item(0)
@@ -129,32 +136,3 @@ class PowerMenuWindow(Gtk.Window):
         cmd = commands.get(action)
         if cmd:
             Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE)
-
-
-class PowerMenuOSD(Gtk.Application):
-    def __init__(self) -> None:
-        super().__init__(application_id="com.my_application.id")
-        self.connect("activate", self.on_activate)
-
-    def _init_css(self) -> None:
-        provider = Gtk.CssProvider()
-        provider.load_from_path(str(CSS))
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
-
-    def on_activate(self, app) -> None:
-        self._init_css()
-        power_menu: PowerMenuWindow = PowerMenuWindow(application=app)
-        power_menu.present()
-
-
-if __name__ == "__main__":
-    import sys
-
-    try:
-        PowerMenuOSD().run(None)
-    except KeyboardInterrupt:
-        sys.exit(0)
