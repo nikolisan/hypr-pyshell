@@ -1,5 +1,5 @@
 popover.audio-popover > contents {
-    background-color: rgba(20, 50, 60, 0.85);
+    background-color: rgba(20, 50, 60, 0.4);
     border-radius: 12px;
     padding: 4px;
     border: none;
@@ -126,3 +126,4 @@ popover.audio-popover > contents {
 .audio-routes checkbutton:checked label {
     color: #cdd6f4;
 }
+

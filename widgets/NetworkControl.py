@@ -10,6 +10,7 @@ from pathlib import Path
 from gi.repository import Gio, GLib, GObject, Gtk, Gdk
 
 from utils._network_helpers import _freq_to_band, _strength_to_icon, _truncate_ssid
+from utils.css_loader import load_css
 
 _NM_BUS = "org.freedesktop.NetworkManager"
 _NM_PATH = "/org/freedesktop/NetworkManager"
@@ -694,13 +695,7 @@ class NetworkControl(Gtk.MenuButton):
         popover.connect("show", self._on_popover_show)
 
         # CSS
-        provider = Gtk.CssProvider()
-        provider.load_from_path(str(_CSS))
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
+        load_css(str(_CSS))
 
         # Signals
         self._backend.connect("active-connection-changed", self._on_active_changed)

@@ -12,6 +12,8 @@ gi.require_version("Gtk4LayerShell", "1.0")
 from gi.repository import Gtk, Gio, Gdk
 from gi.repository import Gtk4LayerShell as LayerShell  # pyright: ignore[reportAttributeAccessIssue, reportUnknownVariableType, reportUnusedImport]  # noqa: E402
 
+from utils.css_loader import load_css
+
 
 BASE_DIR = Path(__file__).parent.parent
 PICTURE = BASE_DIR / "assets" / "images" / "pixel_art.png"
@@ -61,13 +63,7 @@ class PowerMenuWindow(Gtk.Window):
         key_ctrl.connect("key-pressed", self._on_key_pressed)
         self.add_controller(key_ctrl)
 
-        provider = Gtk.CssProvider()
-        provider.load_from_path(str(CSS))
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
+        load_css(str(CSS))
         self.add_css_class("power-menu")
 
         monitor = Gdk.Display.get_default().get_monitors().get_item(0)

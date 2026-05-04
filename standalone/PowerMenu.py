@@ -12,8 +12,16 @@ gi.require_version("Gtk4LayerShell", "1.0")
 from gi.repository import GLib, Gtk, Gio, Gdk
 from gi.repository import Gtk4LayerShell as LayerShell  # pyright: ignore[reportAttributeAccessIssue, reportUnknownVariableType, reportUnusedImport]  # noqa: E402
 
+try:
+    from pyshell.utils.css_loader import load_css
+except ImportError:
+    import sys
+    from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from utils.css_loader import load_css
+
+BASE_DIR = Path(__file__).parent.parent
 PICTURE = BASE_DIR / "assets" / "images" / "pixel_art.png"
 CSS = BASE_DIR / "assets" / "css" / "powermenu.css"
 
@@ -137,13 +145,7 @@ class PowerMenuOSD(Gtk.Application):
         self.connect("activate", self.on_activate)
 
     def _init_css(self) -> None:
-        provider = Gtk.CssProvider()
-        provider.load_from_path(str(CSS))
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
+        load_css(str(CSS))
 
     def on_activate(self, app) -> None:
         self._init_css()

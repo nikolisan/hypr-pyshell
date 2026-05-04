@@ -1,15 +1,17 @@
 window.power-menu {
     padding: 10px;
     border-radius: 30px;
-    background-color: rgba(20, 50, 60, 0.5);
+    background-color: rgba(1, 1, 1, 0.3);
 }
 
 window.power-menu picture {
     border-radius: 20px;
 }
 
+
 window.power-menu .info-box {
     background-color: rgba(20, 50, 60, 0.5);
+    border-radius: 0px 0px 19px 19px;
     padding: 30px 16px;
 }
 
@@ -56,6 +58,3 @@ window.power-menu .buttons-box button image {
     -gtk-icon-size: 20px;
 }
 
-window.power-menu .buttons-box button box {
-    spacing: 4px;
-}

@@ -7,6 +7,8 @@ gi.require_version("AstalWp", "0.1")
 from gi.repository import Gtk, Gdk, AstalWp
 from gi.repository import Gtk4LayerShell as LayerShell  # pyright: ignore[reportAttributeAccessIssue, reportUnknownVariableType, reportUnusedImport]  # noqa: E402
 
+from utils.css_loader import load_css
+
 _CSS = Path(__file__).parent.parent / "assets" / "css" / "audio.css"
 
 
@@ -105,12 +107,18 @@ class ActiveDeviceRow(Gtk.Box):
 class AudioControl(Gtk.MenuButton):
     def __init__(self):
         super().__init__()
+        load_css(str(_CSS))
         wp = AstalWp.get_default()
         self._audio = wp.get_audio()
         self._speaker = wp.get_default_speaker()
 
+        self._button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
         self._icon = Gtk.Image(icon_name=self._speaker.get_volume_icon())
-        self.set_child(self._icon)
+        self._button_volume_label = Gtk.Label()
+        self._button_box.append(self._icon)
+        self._button_box.append(self._button_volume_label)
+
+        self.set_child(self._button_box)
 
         content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         content.add_css_class("audio-panel")
@@ -129,14 +137,6 @@ class AudioControl(Gtk.MenuButton):
         popover.add_css_class("audio-popover")
         popover.set_child(content)
         self.set_popover(popover)
-
-        provider = Gtk.CssProvider()
-        provider.load_from_path(str(_CSS))
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
 
         self._speaker.connect("notify::volume", lambda *_: self._sync_volume())
         self._speaker.connect("notify::mute", lambda *_: self._sync_volume())
@@ -220,7 +220,9 @@ class AudioControl(Gtk.MenuButton):
 
     def _sync_volume(self):
         vol = self._speaker.get_volume()
-        self._vol_label.set_text(str(int(vol * 100)))
+        vol_pct = f"Volume: {int(vol * 100):3d}"
+        self._vol_label.set_text(vol_pct)
+        self._button_volume_label.set_text(vol_pct)
         self._slider.handler_block_by_func(self._on_slider_changed)
         self._slider.set_value(vol)
         self._slider.handler_unblock_by_func(self._on_slider_changed)
