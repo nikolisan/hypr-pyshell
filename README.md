@@ -24,6 +24,4 @@ I started this project as a personal experiment to learn how to use `gtk4-shell`
    ```bash
    sudo pacman -S gtk4 gtk4-layer-shell python-gobject astal-wp hyprland
    ```
-   ```
-```
 
